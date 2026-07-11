@@ -132,41 +132,65 @@ export async function saveSubmissionToDatabase(record: SubmissionRecord) {
   return record.submissionId;
 }
 
+// timestamptz columns come back from the Neon driver as JS Date objects; the
+// schemas expect ISO strings.
+function toIsoString(value: unknown): string {
+  return value instanceof Date ? value.toISOString() : new Date(String(value)).toISOString();
+}
+
+function rowToHistoryEntry(row: Record<string, unknown>): HistoryEntry {
+  const createdAt = toIsoString(row.created_at);
+  const result = SurveyResultSchema.parse({
+    ...(row.result_json as Record<string, unknown>),
+    submissionId: row.submission_id,
+    createdAt,
+  });
+
+  return {
+    submissionId: String(row.submission_id),
+    userId: row.user_id ? String(row.user_id) : null,
+    createdAt,
+    input: SurveyInputSchema.parse(row.input_json),
+    result,
+  };
+}
+
 export async function getUserSubmissions(userId?: string): Promise<HistoryEntry[]> {
   const sql = getSqlClient();
   if (!sql) {
     return [];
   }
 
-  const rows = await sql`
-    SELECT
-      s.id AS submission_id,
-      s.user_id,
-      s.created_at,
-      s.input_json,
-      r.result_json
-    FROM submissions s
-    LEFT JOIN results r ON r.submission_id = s.id
-    WHERE (${userId} IS NULL OR s.user_id = ${userId})
-    ORDER BY s.created_at DESC
-    LIMIT 20
-  `;
+  // Two queries instead of `(${userId} IS NULL OR ...)`: Postgres can't infer
+  // the type of a bare `$1 IS NULL` parameter and rejects the query.
+  const rows = userId
+    ? await sql`
+        SELECT
+          s.id AS submission_id,
+          s.user_id,
+          s.created_at,
+          s.input_json,
+          r.result_json
+        FROM submissions s
+        LEFT JOIN results r ON r.submission_id = s.id
+        WHERE s.user_id = ${userId}
+        ORDER BY s.created_at DESC
+        LIMIT 20
+      `
+    : await sql`
+        SELECT
+          s.id AS submission_id,
+          s.user_id,
+          s.created_at,
+          s.input_json,
+          r.result_json
+        FROM submissions s
+        LEFT JOIN results r ON r.submission_id = s.id
+        ORDER BY s.created_at DESC
+        LIMIT 20
+      `;
 
-  return (rows as Array<Record<string, unknown>>).map((row) => {
-    const result = SurveyResultSchema.parse({
-      ...(row.result_json as Record<string, unknown>),
-      submissionId: row.submission_id,
-      createdAt: row.created_at,
-    });
-
-    return {
-      submissionId: String(row.submission_id),
-      userId: row.user_id ? String(row.user_id) : null,
-      createdAt: String(row.created_at),
-      input: SurveyInputSchema.parse(row.input_json),
-      result,
-    } satisfies HistoryEntry;
-  });
+  return (rows as Array<Record<string, unknown>>).map(rowToHistoryEntry);
 }
 
 export async function getSubmissionById(submissionId: string): Promise<HistoryEntry | null> {
@@ -193,19 +217,7 @@ export async function getSubmissionById(submissionId: string): Promise<HistoryEn
     return null;
   }
 
-  const result = SurveyResultSchema.parse({
-    ...(row.result_json as Record<string, unknown>),
-    submissionId: row.submission_id,
-    createdAt: row.created_at,
-  });
-
-  return {
-    submissionId: String(row.submission_id),
-    userId: row.user_id ? String(row.user_id) : null,
-    createdAt: String(row.created_at),
-    input: SurveyInputSchema.parse(row.input_json),
-    result,
-  } satisfies HistoryEntry;
+  return rowToHistoryEntry(row);
 }
 
 export async function getDemoUserId() {
