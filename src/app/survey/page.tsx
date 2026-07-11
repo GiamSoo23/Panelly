@@ -1,11 +1,13 @@
 "use client"
 import React, { useState, useEffect, useRef } from 'react';
+import { useRouter } from "next/navigation";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
 export default function SurveyPage() {
+  const router = useRouter();
   const [step, setStep] = useState(1);
 
   // Core Display Health States
@@ -135,7 +137,25 @@ export default function SurveyPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("STAGE CLEAR! Baseline Locked!");
+
+    try {
+      const response = await fetch("/api/survey", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ formData }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Submission failed");
+      }
+
+      const { submissionId } = await response.json();
+      toast.success("STAGE CLEAR! Baseline Locked!");
+      router.push(`/results/${submissionId}`);
+    } catch (error) {
+      console.error(error);
+      toast.error("Unable to submit survey. Try again.");
+    }
   };
 
   return (

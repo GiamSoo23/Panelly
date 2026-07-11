@@ -191,20 +191,53 @@ export default function SurveyPage() {
     setStep(prev => prev - 1);
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("QUEST COMPLETE! Routing Summary Matrix...");
     
-    // Jump straight to the results screen directory index
-    setTimeout(() => {
-      router.push('/results');
-    }, 1200);
+    try {
+      const response = await fetch("/api/survey", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ formData }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Submission failed");
+      }
+
+      const { submissionId } = await response.json();
+      toast.success("QUEST COMPLETE! Routing Summary Matrix...");
+      
+      setTimeout(() => {
+        router.push(`/results/${submissionId}`);
+      }, 1200);
+    } catch (error) {
+      console.error(error);
+      toast.error("Unable to submit baseline. Try again.");
+    }
   };
 
   return (
     <div className="flex flex-col items-center justify-between h-screen w-screen p-6 bg-[#355E3B] text-white font-mono select-none overflow-hidden relative">
       
       <style dangerouslySetInnerHTML={{__html: `
+        @keyframes floatSlow {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-12px) rotate(2deg); }
+        }
+        @keyframes pulseGlow {
+          0%, 100% { opacity: 0.35; transform: scale(1); }
+          50% { opacity: 0.9; transform: scale(1.08); }
+        }
+        @keyframes shimmerSweep {
+          0% { transform: translateX(-120%); }
+          100% { transform: translateX(120%); }
+        }
+        @keyframes zoomInPulse {
+          0% { transform: scale(0.96); opacity: 0.7; }
+          50% { transform: scale(1.02); opacity: 1; }
+          100% { transform: scale(1); opacity: 0.95; }
+        }
         @keyframes customHeartPop {
           0% { transform: scale(0.4); opacity: 0.5; }
           50% { transform: scale(1.4); }
@@ -220,6 +253,14 @@ export default function SurveyPage() {
       `}} />
 
       <div className="absolute inset-0 w-full h-full pointer-events-none z-50 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,215,0,0.16),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(255,255,255,0.12),_transparent_34%),linear-gradient(135deg,_rgba(0,0,0,0.12),_transparent)]" />
+        <div className="absolute top-10 left-10 w-24 h-24 rounded-full border border-[#FFD700]/30 animate-[pulseGlow_6s_ease-in-out_infinite]" />
+        <div className="absolute bottom-20 right-16 w-32 h-32 rounded-full border border-white/20 animate-[pulseGlow_7s_ease-in-out_infinite]" />
+        <div className="absolute top-28 right-20 w-16 h-16 border border-[#FFD700]/20 rotate-12 animate-[floatSlow_8s_ease-in-out_infinite]" />
+        <div className="absolute bottom-12 left-1/4 w-20 h-20 border border-white/15 rotate-45 animate-[floatSlow_9s_ease-in-out_infinite]" />
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/10 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/20 to-transparent" />
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] h-[70vw] max-w-[500px] max-h-[500px] rounded-full border border-[#FFD700]/10 animate-[pulseGlow_10s_ease-in-out_infinite]" />
         {shatteredParticles.map(p => (
           <div key={p.id} className="custom-animate-pop custom-animate-shatter text-2xl absolute drop-shadow-[0_4px_0_rgba(0,0,0,1)]" style={{ left: p.left, top: '80px' }}>
             {p.char}
@@ -229,17 +270,21 @@ export default function SurveyPage() {
 
       {/* ARCADE HEADER HUD PANEL */}
       <div className="w-full max-w-lg mt-2 flex flex-col items-center space-y-3 z-10">
-        <h1 className="text-[#FFD700] text-2xl font-black tracking-wider uppercase drop-shadow-[2px_2px_0px_rgba(0,0,0,0.8)]">
-          ENERGY QUEST
-        </h1>
+        <div className="px-4 py-2 border border-[#FFD700]/40 bg-black/25 backdrop-blur-sm relative overflow-hidden animate-[zoomInPulse_1.6s_ease-out]">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-120%] animate-[shimmerSweep_2.4s_ease-in-out_infinite]" />
+          <h1 className="text-[#FFD700] text-2xl font-black tracking-wider uppercase drop-shadow-[2px_2px_0px_rgba(0,0,0,0.8)] relative z-10">
+            ENERGY QUEST
+          </h1>
+        </div>
 
         <div className="w-full space-y-1">
           <div className="flex justify-between text-[10px] uppercase font-bold text-[#FFD700]">
             <span>{isScanning ? "Scanning Target Device" : "Level Progress"}</span>
             <span>{isScanning ? "CAMERA INTERACTION" : `Zone {step} / 5`}</span>
           </div>
-          <div className="w-full bg-black/40 h-3 border border-[#FFD700] p-[2px]">
-            <div className="bg-[#FFC200] h-full transition-all duration-300" style={{ width: isScanning ? '100%' : `${(step / 5) * 100}%` }} />
+          <div className="w-full bg-black/40 h-3 border border-[#FFD700] p-[2px] shadow-[inset_0_0_0_2px_rgba(255,255,255,0.08)] relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-120%] animate-[shimmerSweep_2.8s_ease-in-out_infinite]" />
+            <div className="bg-[#FFC200] h-full transition-all duration-300 relative z-10" style={{ width: isScanning ? '100%' : `${(step / 5) * 100}%` }} />
           </div>
         </div>
 
@@ -249,7 +294,7 @@ export default function SurveyPage() {
             <span>Eco-Vitality (Health)</span>
             {displayGoldHearts > 0 && <span className="text-[#FFC200] text-[9px] font-black animate-pulse">✨ ABSORPTION ACTIVE ✨</span>}
           </div>
-          <div className="flex flex-wrap gap-1 bg-black/30 p-2 border border-black/40 min-h-[44px] items-center relative">
+          <div className="flex flex-wrap gap-1 bg-black/30 p-2 border border-black/40 min-h-[44px] items-center relative shadow-[0_0_0_1px_rgba(255,255,255,0.06)]">
             {[...Array(displayRedHearts)].map((_, i) => (
               <span key={`red-${i}`} className={`text-xl drop-shadow-[1px_2px_0px_rgba(0,0,0,1)] inline-block ${popTrigger ? 'custom-animate-pop' : ''}`}>❤️</span>
             ))}
@@ -306,7 +351,7 @@ export default function SurveyPage() {
           </div>
         </div>
       ) : (
-        <div className="w-full max-w-md my-auto z-10 max-h-[60vh] flex flex-col justify-between space-y-6">
+        <div className="w-full max-w-md my-auto z-10 max-h-[60vh] flex flex-col justify-between space-y-6 rounded-2xl border border-[#FFD700]/20 bg-black/20 p-4 shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_12px_40px_rgba(0,0,0,0.25)] backdrop-blur-sm animate-[zoomInPulse_1.2s_ease-out]">
           {step === 1 && (
             <div className="space-y-6">
               <h2 className="text-base font-black text-[#FFD700] uppercase tracking-wide border-b border-[#FFD700]/30 pb-2">📍 REGION INITIALIZATION</h2>

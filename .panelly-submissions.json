@@ -1,0 +1,729 @@
+{
+  "8a7bfdf9-496d-432b-a3ef-68c281c1fd3b": {
+    "submissionId": "8a7bfdf9-496d-432b-a3ef-68c281c1fd3b",
+    "createdAt": "2026-07-11T21:15:28.855Z",
+    "payload": {
+      "zip": "34355",
+      "lat": 27.95,
+      "lng": -82.46,
+      "roofSolarPotential": {
+        "maxArrayPanelsCount": 16,
+        "maxSunshineHoursPerYear": 2800,
+        "panelCapacityWatts": 420,
+        "carbonOffsetFactorKgPerMwh": 0.8,
+        "dataSource": "measured"
+      },
+      "payback": {
+        "systemSizeKw": 5.2,
+        "panelCount": 12,
+        "estimatedSystemCostDollars": 18000,
+        "costEstimateSource": "estimated",
+        "annualProductionKwh": 8000,
+        "annualCurrentCostDollars": 1800,
+        "annualCostAfterSolarDollars": 600,
+        "annualSavingsDollars": 1200,
+        "paybackYears": 15,
+        "ratePerKwh": 0.22
+      },
+      "installers": [],
+      "appliances": [
+        {
+          "id": "ev-charger",
+          "applianceName": "EV Charger",
+          "estWattage": 3000,
+          "estDailyKwh": 10
+        }
+      ],
+      "billRead": null,
+      "tip": "A few low-cost habit changes can noticeably cut your monthly energy bill."
+    }
+  },
+  "cf6b1767-5275-4a48-8fea-a39bd0b05f72": {
+    "submissionId": "cf6b1767-5275-4a48-8fea-a39bd0b05f72",
+    "createdAt": "2026-07-11T21:15:30.071Z",
+    "payload": {
+      "zip": "34355",
+      "lat": 27.95,
+      "lng": -82.46,
+      "roofSolarPotential": {
+        "maxArrayPanelsCount": 16,
+        "maxSunshineHoursPerYear": 2800,
+        "panelCapacityWatts": 420,
+        "carbonOffsetFactorKgPerMwh": 0.8,
+        "dataSource": "measured"
+      },
+      "payback": {
+        "systemSizeKw": 5.2,
+        "panelCount": 12,
+        "estimatedSystemCostDollars": 18000,
+        "costEstimateSource": "estimated",
+        "annualProductionKwh": 8000,
+        "annualCurrentCostDollars": 1800,
+        "annualCostAfterSolarDollars": 600,
+        "annualSavingsDollars": 1200,
+        "paybackYears": 15,
+        "ratePerKwh": 0.22
+      },
+      "installers": [],
+      "appliances": [
+        {
+          "id": "ev-charger",
+          "applianceName": "EV Charger",
+          "estWattage": 3000,
+          "estDailyKwh": 10
+        }
+      ],
+      "billRead": null,
+      "tip": "A few low-cost habit changes can noticeably cut your monthly energy bill."
+    }
+  },
+  "e45f31a6-b002-4e68-8a32-f9b4c5f7ab58": {
+    "submissionId": "e45f31a6-b002-4e68-8a32-f9b4c5f7ab58",
+    "createdAt": "2026-07-11T21:16:22.952Z",
+    "payload": {
+      "zip": "23244",
+      "lat": 27.95,
+      "lng": -82.46,
+      "roofSolarPotential": {
+        "maxArrayPanelsCount": 16,
+        "maxSunshineHoursPerYear": 2800,
+        "panelCapacityWatts": 420,
+        "carbonOffsetFactorKgPerMwh": 0.8,
+        "dataSource": "measured"
+      },
+      "payback": {
+        "systemSizeKw": 5.2,
+        "panelCount": 12,
+        "estimatedSystemCostDollars": 18000,
+        "costEstimateSource": "estimated",
+        "annualProductionKwh": 8000,
+        "annualCurrentCostDollars": 1800,
+        "annualCostAfterSolarDollars": 600,
+        "annualSavingsDollars": 1200,
+        "paybackYears": 15,
+        "ratePerKwh": 0.22
+      },
+      "installers": [],
+      "appliances": [
+        {
+          "id": "ev-charger",
+          "applianceName": "EV Charger",
+          "estWattage": 3000,
+          "estDailyKwh": 10
+        },
+        {
+          "id": "gaming-rig",
+          "applianceName": "Gaming Rig",
+          "estWattage": 3000,
+          "estDailyKwh": 10
+        }
+      ],
+      "billRead": null,
+      "tip": "A few low-cost habit changes can noticeably cut your monthly energy bill."
+    }
+  },
+  "871dd6cb-fdfb-4ba5-a050-71143102a63a": {
+    "submissionId": "871dd6cb-fdfb-4ba5-a050-71143102a63a",
+    "createdAt": "2026-07-11T22:06:57.388Z",
+    "zip": "42222",
+    "lat": 0,
+    "lng": 0,
+    "roofSolarPotential": {
+      "maxArrayPanelsCount": 12,
+      "maxSunshineHoursPerYear": 2500,
+      "panelCapacityWatts": 420,
+      "carbonOffsetFactorKgPerMwh": 0.8,
+      "dataSource": "estimated"
+    },
+    "payback": {
+      "systemSizeKw": 4.8,
+      "panelCount": 10,
+      "estimatedSystemCostDollars": 16000,
+      "costEstimateSource": "estimated",
+      "annualProductionKwh": 7200,
+      "annualCurrentCostDollars": 1450,
+      "annualCostAfterSolarDollars": 520,
+      "annualSavingsDollars": 930,
+      "paybackYears": 17,
+      "ratePerKwh": 0.21
+    },
+    "installers": [],
+    "appliances": [
+      {
+        "id": "gaming-rig",
+        "applianceName": "Gaming Rig",
+        "estWattage": 500,
+        "estDailyKwh": 3
+      }
+    ],
+    "billRead": null,
+    "tip": "A solar-ready estimate is generated from your household profile."
+  },
+  "45a7d403-0937-4d76-85ea-8bd608d61014": {
+    "submissionId": "45a7d403-0937-4d76-85ea-8bd608d61014",
+    "createdAt": "2026-07-11T22:09:07.653Z",
+    "zip": "33333",
+    "lat": 0,
+    "lng": 0,
+    "roofSolarPotential": {
+      "maxArrayPanelsCount": 12,
+      "maxSunshineHoursPerYear": 2500,
+      "panelCapacityWatts": 420,
+      "carbonOffsetFactorKgPerMwh": 0.8,
+      "dataSource": "estimated"
+    },
+    "payback": {
+      "systemSizeKw": 4.8,
+      "panelCount": 10,
+      "estimatedSystemCostDollars": 16000,
+      "costEstimateSource": "estimated",
+      "annualProductionKwh": 7200,
+      "annualCurrentCostDollars": 1450,
+      "annualCostAfterSolarDollars": 520,
+      "annualSavingsDollars": 930,
+      "paybackYears": 17,
+      "ratePerKwh": 0.21
+    },
+    "installers": [],
+    "appliances": [
+      {
+        "id": "gaming-rig",
+        "applianceName": "Gaming Rig",
+        "estWattage": 500,
+        "estDailyKwh": 3
+      }
+    ],
+    "billRead": null,
+    "tip": "A solar-ready estimate is generated from your household profile."
+  },
+  "07fbef4f-b96c-43f8-b3d3-773a6fb1840a": {
+    "submissionId": "07fbef4f-b96c-43f8-b3d3-773a6fb1840a",
+    "createdAt": "2026-07-11T22:21:12.213Z",
+    "zip": "23232",
+    "lat": 0,
+    "lng": 0,
+    "roofSolarPotential": {
+      "maxArrayPanelsCount": 33,
+      "maxSunshineHoursPerYear": 2400,
+      "panelCapacityWatts": 420,
+      "carbonOffsetFactorKgPerMwh": 0.75,
+      "dataSource": "estimated"
+    },
+    "payback": {
+      "systemSizeKw": 13.5,
+      "panelCount": 33,
+      "estimatedSystemCostDollars": 40500,
+      "costEstimateSource": "estimated",
+      "annualProductionKwh": 18900,
+      "annualCurrentCostDollars": 4752,
+      "annualCostAfterSolarDollars": 594,
+      "annualSavingsDollars": 4158,
+      "paybackYears": 9.7,
+      "ratePerKwh": 0.22
+    },
+    "installers": [],
+    "appliances": [
+      {
+        "id": "pool/hot-tub",
+        "applianceName": "Pool/Hot Tub",
+        "estWattage": 500,
+        "estDailyKwh": 3
+      }
+    ],
+    "billRead": null,
+    "tip": "Your home uses approximately 21,600 kWh annually. A 13.5 kW solar system could offset ~88% of your usage."
+  },
+  "a53098da-8bc0-4832-a330-e0004f7592c6": {
+    "submissionId": "a53098da-8bc0-4832-a330-e0004f7592c6",
+    "createdAt": "2026-07-11T22:39:57.414Z",
+    "zip": "34566",
+    "lat": 0,
+    "lng": 0,
+    "roofSolarPotential": {
+      "maxArrayPanelsCount": 29,
+      "maxSunshineHoursPerYear": 2400,
+      "panelCapacityWatts": 420,
+      "carbonOffsetFactorKgPerMwh": 0.75,
+      "dataSource": "estimated"
+    },
+    "payback": {
+      "systemSizeKw": 11.8,
+      "panelCount": 29,
+      "estimatedSystemCostDollars": 35438,
+      "costEstimateSource": "estimated",
+      "annualProductionKwh": 16538,
+      "annualCurrentCostDollars": 4158,
+      "annualCostAfterSolarDollars": 520,
+      "annualSavingsDollars": 3638,
+      "paybackYears": 9.7,
+      "ratePerKwh": 0.22
+    },
+    "installers": [],
+    "appliances": [
+      {
+        "id": "gaming-rig",
+        "applianceName": "Gaming Rig",
+        "estWattage": 500,
+        "estDailyKwh": 3
+      },
+      {
+        "id": "pool/hot-tub",
+        "applianceName": "Pool/Hot Tub",
+        "estWattage": 500,
+        "estDailyKwh": 3
+      }
+    ],
+    "billRead": null,
+    "tip": "Your home uses approximately 18,900 kWh annually. A 11.8 kW solar system could offset ~88% of your usage."
+  },
+  "b4ebd7c4-b424-4a53-b9f5-ad887e6c21a1": {
+    "submissionId": "b4ebd7c4-b424-4a53-b9f5-ad887e6c21a1",
+    "createdAt": "2026-07-11T22:39:58.031Z",
+    "zip": "34566",
+    "lat": 0,
+    "lng": 0,
+    "roofSolarPotential": {
+      "maxArrayPanelsCount": 29,
+      "maxSunshineHoursPerYear": 2400,
+      "panelCapacityWatts": 420,
+      "carbonOffsetFactorKgPerMwh": 0.75,
+      "dataSource": "estimated"
+    },
+    "payback": {
+      "systemSizeKw": 11.8,
+      "panelCount": 29,
+      "estimatedSystemCostDollars": 35438,
+      "costEstimateSource": "estimated",
+      "annualProductionKwh": 16538,
+      "annualCurrentCostDollars": 4158,
+      "annualCostAfterSolarDollars": 520,
+      "annualSavingsDollars": 3638,
+      "paybackYears": 9.7,
+      "ratePerKwh": 0.22
+    },
+    "installers": [],
+    "appliances": [
+      {
+        "id": "gaming-rig",
+        "applianceName": "Gaming Rig",
+        "estWattage": 500,
+        "estDailyKwh": 3
+      },
+      {
+        "id": "pool/hot-tub",
+        "applianceName": "Pool/Hot Tub",
+        "estWattage": 500,
+        "estDailyKwh": 3
+      }
+    ],
+    "billRead": null,
+    "tip": "Your home uses approximately 18,900 kWh annually. A 11.8 kW solar system could offset ~88% of your usage."
+  },
+  "01cb173c-7e72-4003-9043-848921b01c33": {
+    "submissionId": "01cb173c-7e72-4003-9043-848921b01c33",
+    "createdAt": "2026-07-11T22:54:39.917Z",
+    "zip": "23444",
+    "lat": 0,
+    "lng": 0,
+    "roofSolarPotential": {
+      "maxArrayPanelsCount": 27,
+      "maxSunshineHoursPerYear": 2400,
+      "panelCapacityWatts": 420,
+      "carbonOffsetFactorKgPerMwh": 0.75,
+      "dataSource": "estimated"
+    },
+    "payback": {
+      "systemSizeKw": 11.1,
+      "panelCount": 27,
+      "estimatedSystemCostDollars": 33375,
+      "costEstimateSource": "estimated",
+      "annualProductionKwh": 15575,
+      "annualCurrentCostDollars": 3916,
+      "annualCostAfterSolarDollars": 490,
+      "annualSavingsDollars": 3427,
+      "paybackYears": 9.7,
+      "ratePerKwh": 0.22
+    },
+    "installers": [],
+    "appliances": [
+      {
+        "id": "pool/hot-tub",
+        "applianceName": "Pool/Hot Tub",
+        "estWattage": 500,
+        "estDailyKwh": 3
+      }
+    ],
+    "billRead": null,
+    "tip": "Your home uses approximately 17,800 kWh annually. A 11.1 kW solar system could offset ~88% of your usage."
+  },
+  "b78aeabc-a8df-46e4-9293-3ae436ab41c2": {
+    "submissionId": "b78aeabc-a8df-46e4-9293-3ae436ab41c2",
+    "createdAt": "2026-07-11T22:54:42.201Z",
+    "zip": "23444",
+    "lat": 0,
+    "lng": 0,
+    "roofSolarPotential": {
+      "maxArrayPanelsCount": 27,
+      "maxSunshineHoursPerYear": 2400,
+      "panelCapacityWatts": 420,
+      "carbonOffsetFactorKgPerMwh": 0.75,
+      "dataSource": "estimated"
+    },
+    "payback": {
+      "systemSizeKw": 11.1,
+      "panelCount": 27,
+      "estimatedSystemCostDollars": 33375,
+      "costEstimateSource": "estimated",
+      "annualProductionKwh": 15575,
+      "annualCurrentCostDollars": 3916,
+      "annualCostAfterSolarDollars": 490,
+      "annualSavingsDollars": 3427,
+      "paybackYears": 9.7,
+      "ratePerKwh": 0.22
+    },
+    "installers": [],
+    "appliances": [
+      {
+        "id": "pool/hot-tub",
+        "applianceName": "Pool/Hot Tub",
+        "estWattage": 500,
+        "estDailyKwh": 3
+      }
+    ],
+    "billRead": null,
+    "tip": "Your home uses approximately 17,800 kWh annually. A 11.1 kW solar system could offset ~88% of your usage."
+  },
+  "678220e3-b4fc-4924-93c3-9f3041f3d393": {
+    "submissionId": "678220e3-b4fc-4924-93c3-9f3041f3d393",
+    "createdAt": "2026-07-11T22:57:18.348Z",
+    "zip": "34565",
+    "lat": 0,
+    "lng": 0,
+    "roofSolarPotential": {
+      "maxArrayPanelsCount": 21,
+      "maxSunshineHoursPerYear": 2400,
+      "panelCapacityWatts": 420,
+      "carbonOffsetFactorKgPerMwh": 0.75,
+      "dataSource": "estimated"
+    },
+    "payback": {
+      "systemSizeKw": 8.7,
+      "panelCount": 21,
+      "estimatedSystemCostDollars": 26063,
+      "costEstimateSource": "estimated",
+      "annualProductionKwh": 12163,
+      "annualCurrentCostDollars": 3058,
+      "annualCostAfterSolarDollars": 382,
+      "annualSavingsDollars": 2676,
+      "paybackYears": 9.7,
+      "ratePerKwh": 0.22
+    },
+    "installers": [],
+    "appliances": [
+      {
+        "id": "gaming-rig",
+        "applianceName": "Gaming Rig",
+        "estWattage": 500,
+        "estDailyKwh": 3
+      }
+    ],
+    "billRead": null,
+    "tip": "Your home uses approximately 13,900 kWh annually. A 8.7 kW solar system could offset ~88% of your usage."
+  },
+  "5e9cf500-6603-4404-8013-9c0e4a5db818": {
+    "submissionId": "5e9cf500-6603-4404-8013-9c0e4a5db818",
+    "createdAt": "2026-07-11T22:58:31.212Z",
+    "zip": "58954",
+    "lat": 0,
+    "lng": 0,
+    "roofSolarPotential": {
+      "maxArrayPanelsCount": 26,
+      "maxSunshineHoursPerYear": 2400,
+      "panelCapacityWatts": 420,
+      "carbonOffsetFactorKgPerMwh": 0.75,
+      "dataSource": "estimated"
+    },
+    "payback": {
+      "systemSizeKw": 10.9,
+      "panelCount": 26,
+      "estimatedSystemCostDollars": 32625,
+      "costEstimateSource": "estimated",
+      "annualProductionKwh": 15225,
+      "annualCurrentCostDollars": 3828,
+      "annualCostAfterSolarDollars": 479,
+      "annualSavingsDollars": 3350,
+      "paybackYears": 9.7,
+      "ratePerKwh": 0.22
+    },
+    "installers": [],
+    "appliances": [
+      {
+        "id": "gaming-rig",
+        "applianceName": "Gaming Rig",
+        "estWattage": 500,
+        "estDailyKwh": 3
+      }
+    ],
+    "billRead": null,
+    "tip": "Your home uses approximately 17,400 kWh annually. A 10.9 kW solar system could offset ~88% of your usage."
+  },
+  "09b1bc9a-4397-4b4d-984d-f1a42d7656f4": {
+    "submissionId": "09b1bc9a-4397-4b4d-984d-f1a42d7656f4",
+    "createdAt": "2026-07-11T23:04:04.314Z",
+    "zip": "23940",
+    "lat": 0,
+    "lng": 0,
+    "roofSolarPotential": {
+      "maxArrayPanelsCount": 22,
+      "maxSunshineHoursPerYear": 2400,
+      "panelCapacityWatts": 420,
+      "carbonOffsetFactorKgPerMwh": 0.75,
+      "dataSource": "estimated"
+    },
+    "payback": {
+      "systemSizeKw": 8.9,
+      "panelCount": 22,
+      "estimatedSystemCostDollars": 26813,
+      "costEstimateSource": "estimated",
+      "annualProductionKwh": 12513,
+      "annualCurrentCostDollars": 3146,
+      "annualCostAfterSolarDollars": 393,
+      "annualSavingsDollars": 2753,
+      "paybackYears": 9.7,
+      "ratePerKwh": 0.22
+    },
+    "installers": [],
+    "appliances": [
+      {
+        "id": "pool/hot-tub",
+        "applianceName": "Pool/Hot Tub",
+        "estWattage": 500,
+        "estDailyKwh": 3
+      }
+    ],
+    "billRead": null,
+    "tip": "Your home uses approximately 14,300 kWh annually. A 8.9 kW solar system could offset ~88% of your usage."
+  },
+  "480c7532-2b50-40ac-a5ca-386efb3d264f": {
+    "submissionId": "480c7532-2b50-40ac-a5ca-386efb3d264f",
+    "createdAt": "2026-07-11T23:06:00.253Z",
+    "zip": "56565",
+    "lat": 0,
+    "lng": 0,
+    "roofSolarPotential": {
+      "maxArrayPanelsCount": 26,
+      "maxSunshineHoursPerYear": 2400,
+      "panelCapacityWatts": 420,
+      "carbonOffsetFactorKgPerMwh": 0.75,
+      "dataSource": "estimated"
+    },
+    "payback": {
+      "systemSizeKw": 10.8,
+      "panelCount": 26,
+      "estimatedSystemCostDollars": 32438,
+      "costEstimateSource": "estimated",
+      "annualProductionKwh": 15138,
+      "annualCurrentCostDollars": 3806,
+      "annualCostAfterSolarDollars": 476,
+      "annualSavingsDollars": 3330,
+      "paybackYears": 9.7,
+      "ratePerKwh": 0.22
+    },
+    "installers": [],
+    "appliances": [
+      {
+        "id": "gaming-rig",
+        "applianceName": "Gaming Rig",
+        "estWattage": 500,
+        "estDailyKwh": 3
+      }
+    ],
+    "billRead": null,
+    "tip": "Your home uses approximately 17,300 kWh annually. A 10.8 kW solar system could offset ~88% of your usage."
+  },
+  "e1a5f6c9-f0a3-4ff4-b9e2-461f99fcfccb": {
+    "submissionId": "e1a5f6c9-f0a3-4ff4-b9e2-461f99fcfccb",
+    "createdAt": "2026-07-11T23:06:00.375Z",
+    "zip": "56565",
+    "lat": 0,
+    "lng": 0,
+    "roofSolarPotential": {
+      "maxArrayPanelsCount": 26,
+      "maxSunshineHoursPerYear": 2400,
+      "panelCapacityWatts": 420,
+      "carbonOffsetFactorKgPerMwh": 0.75,
+      "dataSource": "estimated"
+    },
+    "payback": {
+      "systemSizeKw": 10.8,
+      "panelCount": 26,
+      "estimatedSystemCostDollars": 32438,
+      "costEstimateSource": "estimated",
+      "annualProductionKwh": 15138,
+      "annualCurrentCostDollars": 3806,
+      "annualCostAfterSolarDollars": 476,
+      "annualSavingsDollars": 3330,
+      "paybackYears": 9.7,
+      "ratePerKwh": 0.22
+    },
+    "installers": [],
+    "appliances": [
+      {
+        "id": "gaming-rig",
+        "applianceName": "Gaming Rig",
+        "estWattage": 500,
+        "estDailyKwh": 3
+      }
+    ],
+    "billRead": null,
+    "tip": "Your home uses approximately 17,300 kWh annually. A 10.8 kW solar system could offset ~88% of your usage."
+  },
+  "d3549451-239c-4067-9fd5-897bc8801098": {
+    "submissionId": "d3549451-239c-4067-9fd5-897bc8801098",
+    "createdAt": "2026-07-11T23:06:00.995Z",
+    "zip": "56565",
+    "lat": 0,
+    "lng": 0,
+    "roofSolarPotential": {
+      "maxArrayPanelsCount": 26,
+      "maxSunshineHoursPerYear": 2400,
+      "panelCapacityWatts": 420,
+      "carbonOffsetFactorKgPerMwh": 0.75,
+      "dataSource": "estimated"
+    },
+    "payback": {
+      "systemSizeKw": 10.8,
+      "panelCount": 26,
+      "estimatedSystemCostDollars": 32438,
+      "costEstimateSource": "estimated",
+      "annualProductionKwh": 15138,
+      "annualCurrentCostDollars": 3806,
+      "annualCostAfterSolarDollars": 476,
+      "annualSavingsDollars": 3330,
+      "paybackYears": 9.7,
+      "ratePerKwh": 0.22
+    },
+    "installers": [],
+    "appliances": [
+      {
+        "id": "gaming-rig",
+        "applianceName": "Gaming Rig",
+        "estWattage": 500,
+        "estDailyKwh": 3
+      }
+    ],
+    "billRead": null,
+    "tip": "Your home uses approximately 17,300 kWh annually. A 10.8 kW solar system could offset ~88% of your usage."
+  },
+  "2664cc70-bb48-4306-af09-d25fa4ab6013": {
+    "submissionId": "2664cc70-bb48-4306-af09-d25fa4ab6013",
+    "createdAt": "2026-07-11T23:06:01.508Z",
+    "zip": "56565",
+    "lat": 0,
+    "lng": 0,
+    "roofSolarPotential": {
+      "maxArrayPanelsCount": 26,
+      "maxSunshineHoursPerYear": 2400,
+      "panelCapacityWatts": 420,
+      "carbonOffsetFactorKgPerMwh": 0.75,
+      "dataSource": "estimated"
+    },
+    "payback": {
+      "systemSizeKw": 10.8,
+      "panelCount": 26,
+      "estimatedSystemCostDollars": 32438,
+      "costEstimateSource": "estimated",
+      "annualProductionKwh": 15138,
+      "annualCurrentCostDollars": 3806,
+      "annualCostAfterSolarDollars": 476,
+      "annualSavingsDollars": 3330,
+      "paybackYears": 9.7,
+      "ratePerKwh": 0.22
+    },
+    "installers": [],
+    "appliances": [
+      {
+        "id": "gaming-rig",
+        "applianceName": "Gaming Rig",
+        "estWattage": 500,
+        "estDailyKwh": 3
+      }
+    ],
+    "billRead": null,
+    "tip": "Your home uses approximately 17,300 kWh annually. A 10.8 kW solar system could offset ~88% of your usage."
+  },
+  "c5426550-b5d3-41e1-a2ec-837981ed0d2e": {
+    "submissionId": "c5426550-b5d3-41e1-a2ec-837981ed0d2e",
+    "createdAt": "2026-07-11T23:23:07.540Z",
+    "zip": "33",
+    "lat": 0,
+    "lng": 0,
+    "roofSolarPotential": {
+      "maxArrayPanelsCount": 26,
+      "maxSunshineHoursPerYear": 2400,
+      "panelCapacityWatts": 420,
+      "carbonOffsetFactorKgPerMwh": 0.75,
+      "dataSource": "estimated"
+    },
+    "payback": {
+      "systemSizeKw": 10.6,
+      "panelCount": 26,
+      "estimatedSystemCostDollars": 31688,
+      "costEstimateSource": "estimated",
+      "annualProductionKwh": 14788,
+      "annualCurrentCostDollars": 3718,
+      "annualCostAfterSolarDollars": 465,
+      "annualSavingsDollars": 3253,
+      "paybackYears": 9.7,
+      "ratePerKwh": 0.22
+    },
+    "installers": [],
+    "appliances": [
+      {
+        "id": "gaming-rig",
+        "applianceName": "Gaming Rig",
+        "estWattage": 500,
+        "estDailyKwh": 3
+      }
+    ],
+    "billRead": null,
+    "tip": "Your home uses approximately 16,900 kWh annually. A 10.6 kW solar system could offset ~88% of your usage."
+  },
+  "59d9ca80-0b4f-48fb-a86a-f012085383da": {
+    "submissionId": "59d9ca80-0b4f-48fb-a86a-f012085383da",
+    "createdAt": "2026-07-11T23:23:10.803Z",
+    "zip": "33",
+    "lat": 0,
+    "lng": 0,
+    "roofSolarPotential": {
+      "maxArrayPanelsCount": 26,
+      "maxSunshineHoursPerYear": 2400,
+      "panelCapacityWatts": 420,
+      "carbonOffsetFactorKgPerMwh": 0.75,
+      "dataSource": "estimated"
+    },
+    "payback": {
+      "systemSizeKw": 10.6,
+      "panelCount": 26,
+      "estimatedSystemCostDollars": 31688,
+      "costEstimateSource": "estimated",
+      "annualProductionKwh": 14788,
+      "annualCurrentCostDollars": 3718,
+      "annualCostAfterSolarDollars": 465,
+      "annualSavingsDollars": 3253,
+      "paybackYears": 9.7,
+      "ratePerKwh": 0.22
+    },
+    "installers": [],
+    "appliances": [
+      {
+        "id": "gaming-rig",
+        "applianceName": "Gaming Rig",
+        "estWattage": 500,
+        "estDailyKwh": 3
+      }
+    ],
+    "billRead": null,
+    "tip": "Your home uses approximately 16,900 kWh annually. A 10.6 kW solar system could offset ~88% of your usage."
+  }
+}
