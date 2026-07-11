@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { ResultsPageContent, UnknownResult } from "@/components/results/ResultsPageContent";
+import { getSubmissionById } from "@/lib/persistence/neon";
 import { getMockSurveyResult } from "@/lib/results/mock-survey-results";
 import { toResultsViewModel } from "@/lib/results/presentation";
 
@@ -16,8 +17,23 @@ export default async function ResultsPage({
 }) {
   const { id } = await params;
 
-  // Integration point: replace this isolated mock lookup with the persisted
-  // SurveyResult lookup for this submissionId when the backend is available.
+  // Real persisted submission first (Connie's Neon lookup), rendered with
+  // Julia's results UI. The saved result doesn't store a state name yet, so
+  // the location label falls back to a generic one — persist the geocoded
+  // state alongside the result to fix that properly.
+  const submission = await getSubmissionById(id);
+  if (submission) {
+    return (
+      <ResultsPageContent
+        model={toResultsViewModel(submission.result, {
+          state: "United States",
+          stateCode: "US",
+        })}
+      />
+    );
+  }
+
+  // Fallback: Julia's mock results, so her demo submission ids keep working.
   const lookup = getMockSurveyResult(id);
 
   if (!lookup.success) {

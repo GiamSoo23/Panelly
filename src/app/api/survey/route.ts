@@ -1,3 +1,8 @@
+// NOTE(connie): this is Gregory's real pipeline from main, adapted during the
+// merge with the survey pivot — the survey no longer collects bill/appliance
+// photos, so bill OCR and photo appliance-ID are gone. The monthly bill is now
+// estimated from the 11 survey answers (see @/lib/energy/usageEstimate — rough
+// numbers, refine freely). Everything else is unchanged.
 import {
   SurveyInputSchema,
   SurveyResultSchema,
@@ -6,8 +11,9 @@ import {
 import { geocodeZip } from "@/lib/geo/geocode";
 import { getSolarPotential } from "@/lib/solar/solarApi";
 import { getResidentialRatePerKwh } from "@/lib/energy/eiaRate";
+import { estimateMonthlyKwh, featureAppliances } from "@/lib/energy/usageEstimate";
 import { findNearbyInstallers } from "@/lib/places/installers";
-import { identifyAppliance, ocrBill, generateTip } from "@/lib/ai/gemini";
+import { generateTip } from "@/lib/ai/gemini";
 import { computePayback } from "@/lib/payback/paybackMath";
 import { getCostPerWattDollars } from "@/lib/payback/costTable";
 import { persistSubmission } from "@/lib/persistence/persistSubmission";
@@ -30,23 +36,7 @@ export async function POST(request: Request) {
   }
   const input = parsedInput.data;
 
-  if (!input.monthlyBillDollars && !input.billPhotoBase64) {
-    return Response.json(
-      { error: "Provide either monthlyBillDollars or billPhotoBase64" },
-      { status: 400 },
-    );
-  }
-
   try {
-    // Independent of geocoding — kick off immediately.
-    const applianceIdPromises = input.appliancePhotos.map(async (photo) => {
-      const identification = await identifyAppliance(photo.imageBase64);
-      return { id: photo.id, ...identification };
-    });
-    const billOcrPromise = input.billPhotoBase64
-      ? ocrBill(input.billPhotoBase64)
-      : Promise.resolve(null);
-
     const { lat, lng, state } = await geocodeZip(input.zip);
 
     // All depend only on lat/lng/state — run together.
@@ -56,17 +46,7 @@ export async function POST(request: Request) {
       findNearbyInstallers(lat, lng),
     ]);
 
-    const [appliances, billRead] = await Promise.all([
-      Promise.all(applianceIdPromises),
-      billOcrPromise,
-    ]);
-
-    // Manual entry takes precedence; otherwise fall back to the OCR'd bill
-    // total, assuming a ~1-month billing period (a known hackathon shortcut).
-    const monthlyBillDollars = input.monthlyBillDollars ?? billRead?.totalDollars;
-    if (monthlyBillDollars == null) {
-      throw new Error("Unable to determine a monthly bill amount");
-    }
+    const monthlyBillDollars = estimateMonthlyKwh(input) * ratePerKwh;
 
     const payback = computePayback({
       monthlyBillDollars,
@@ -75,6 +55,8 @@ export async function POST(request: Request) {
       costPerWattDollars: getCostPerWattDollars(state),
       solarPanelConfigs: solarPotential.solarPanelConfigs,
     });
+
+    const appliances = featureAppliances(input);
 
     const tip = await generateTip({
       applianceNames: appliances.map((a) => a.applianceName),
@@ -98,7 +80,7 @@ export async function POST(request: Request) {
       payback,
       installers,
       appliances,
-      billRead,
+      billRead: null,
       tip,
     };
 
