@@ -1,12 +1,18 @@
 import type { SurveyInput, SurveyResult } from "@/lib/schemas/survey";
 
-// TODO(connie): replace with real Neon/Drizzle queries once the schema
-// (users, submissions, results) exists. Keep this exact signature so the
-// route calling it doesn't need to change.
+import {
+  getDemoUserId,
+  prepareSubmissionRecord,
+  saveSubmissionToDatabase,
+} from "@/lib/persistence/neon";
+
 export async function persistSubmission(
-  _input: SurveyInput,
-  _result: Omit<SurveyResult, "submissionId" | "createdAt">,
+  input: SurveyInput,
+  result: Omit<SurveyResult, "submissionId" | "createdAt">,
 ): Promise<{ submissionId: string }> {
-  console.warn("persistSubmission() is stubbed — no data is being saved.");
-  return { submissionId: `stub-${crypto.randomUUID()}` };
+  const userId = input.userId ?? (await getDemoUserId());
+  const record = prepareSubmissionRecord(input, result, userId);
+  const submissionId = await saveSubmissionToDatabase(record);
+
+  return { submissionId: submissionId ?? record.submissionId };
 }

@@ -5,5 +5,5 @@
 //     return userId ?? undefined;
 //   }
 export async function getUserId(): Promise<string | undefined> {
-  return undefined;
+  return process.env.NEXT_PUBLIC_DEMO_USER_ID ?? process.env.DEMO_USER_ID;
 }
