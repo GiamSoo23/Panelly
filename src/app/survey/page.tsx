@@ -103,20 +103,19 @@ export default function SurveyPage() {
 
     setStatus("Saving your survey…");
 
+    // /api/survey takes the SurveyInput object directly as the body.
     const payload = {
-      input: {
-        zip,
-        homeType,
-        householdSize: Number(householdSize),
-        homeSize,
-        usageHabits,
-        showerTime,
-        hotMeals,
-        dishwasherRuns,
-        laundryLoads,
-        washerTemp,
-        homeFeatures,
-      },
+      zip,
+      homeType,
+      householdSize: Number(householdSize),
+      homeSize,
+      usageHabits,
+      showerTime,
+      hotMeals,
+      dishwasherRuns,
+      laundryLoads,
+      washerTemp,
+      homeFeatures,
     };
 
     const response = await fetch("/api/survey", {
