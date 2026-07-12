@@ -27,7 +27,6 @@ export function GoogleSignInButton({ icon }: { icon: ReactNode }) {
         {loading ? <LoaderCircle className="size-5 animate-spin motion-reduce:animate-none" aria-hidden="true" /> : icon}
         {loading ? "Connecting to Google…" : "Continue with Google"}
       </button>
-      {(localError || hasProviderError) && <p role="alert" className="mt-4 rounded-xl bg-[#fff2f0] px-4 py-3 text-sm font-bold text-[#7a2f27]">{localError ?? "Google sign-in was not completed. Please try again."}</p>}
     </div>
   );
 }
