@@ -317,7 +317,10 @@ export function SurveyGameForm() {
       </div>
 
       {/* HUD HEADER PANEL CONTAINER */}
-      <div className="w-full max-w-lg mt-2 flex flex-col items-center space-y-3 z-10">
+      <div className="w-full max-w-lg mt-2 flex flex-col items-center space-y-3 z-10 relative">
+        <Link href="/" className="absolute top-0 -right-2 bg-[#FFD700] border-2 border-black size-8 flex items-center justify-center hover:bg-[#FFC200] hover:scale-105 transition-transform z-50">
+          <span className="font-black text-black text-xs uppercase tracking-widest leading-none">X</span>
+        </Link>
         <h1 className="text-[#FFD700] text-2xl font-black tracking-wider uppercase drop-shadow-[2px_2px_0px_rgba(0,0,0,0.8)]">
           ENERGY QUEST
         </h1>
@@ -338,9 +341,6 @@ export function SurveyGameForm() {
 
         {/* HUD MINECRAFT DYNAMIC ABSORPTION BAR */}
         <div className="w-full space-y-1">
-          <Link href="/" className="absolute -top-3 -right-3 bg-[#FFD700] border-2 border-black size-8 flex items-center justify-center hover:bg-[#FFC200] hover:scale-105 transition-transform z-50">
-            <span className="font-black text-black text-xs uppercase tracking-widest leading-none">X</span>
-          </Link>
           <div className="text-[10px] uppercase font-bold text-[#FFD700] flex justify-between">
             <span>Eco-Vitality (Health)</span>
             {displayGoldHearts > 0 && <span className="text-[#FFC200] text-[9px] font-black animate-pulse">✨ ABSORPTION ACTIVE ✨</span>}
