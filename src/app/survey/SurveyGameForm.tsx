@@ -248,7 +248,10 @@ export function SurveyGameForm() {
           a === 'Pool/Hot Tub' ? 'pool_hot_tub' :
           a === 'Electric Heater' ? 'electric_water_heater' :
           a === 'Gaming Rig' ? 'gaming_home_office' :
-          a === 'Electric Dryer' ? 'electric_washer_dryer' : 'none'
+          a === 'Electric Dryer' ? 'electric_washer_dryer' :
+          a === 'Electric Oven / Stove' ? 'electric_oven_stove' :
+          a === 'Air Conditioner' ? 'air_conditioner' :
+          a === 'Space Heater' ? 'space_heater' : 'none'
         ),
         identifiedAppliances: identifiedAppliances.length > 0 ? identifiedAppliances : undefined,
         billRead: billRead ? billRead : undefined,
@@ -528,7 +531,7 @@ export function SurveyGameForm() {
             <div className="space-y-2 pt-2">
               <Label className="font-bold text-[11px] text-[#FFC200] uppercase">11. High-Voltage Ecosystem (Select All)</Label>
               <div className="grid grid-cols-2 gap-1.5">
-                {['EV Charger', 'Pool/Hot Tub', 'Electric Heater', 'Gaming Rig', 'Electric Dryer', 'None'].map((appliance) => {
+                {['EV Charger', 'Pool/Hot Tub', 'Electric Heater', 'Gaming Rig', 'Electric Dryer', 'Electric Oven / Stove', 'Air Conditioner', 'Space Heater', 'None'].map((appliance) => {
                   const isChecked = formData.appliances.includes(appliance);
                   return (
                     <div key={appliance} className="flex flex-col gap-1">

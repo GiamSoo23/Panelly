@@ -57,6 +57,9 @@ const FEATURE_PROFILE: Record<string, { monthlyKwh: number; wattage: number }> =
   electric_water_heater: { monthlyKwh: 150, wattage: 4000 },
   gaming_home_office: { monthlyKwh: 80, wattage: 500 },
   electric_washer_dryer: { monthlyKwh: 90, wattage: 3000 },
+  electric_oven_stove: { monthlyKwh: 60, wattage: 3000 },
+  air_conditioner: { monthlyKwh: 200, wattage: 1500 },
+  space_heater: { monthlyKwh: 120, wattage: 1500 },
 };
 
 const PER_PERSON_MONTHLY_KWH = 60;

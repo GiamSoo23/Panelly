@@ -79,6 +79,9 @@ export const HOME_FEATURE_OPTIONS = [
   { value: "electric_water_heater", label: "Electric water heater" },
   { value: "gaming_home_office", label: "Gaming setup / home office with multiple devices" },
   { value: "electric_washer_dryer", label: "Washer/dryer (electric)" },
+  { value: "electric_oven_stove", label: "Electric oven / stove" },
+  { value: "air_conditioner", label: "Air conditioner" },
+  { value: "space_heater", label: "Space heater" },
   { value: "none", label: "None of these" },
 ] as const;
 

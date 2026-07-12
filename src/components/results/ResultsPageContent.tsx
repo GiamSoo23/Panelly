@@ -214,6 +214,37 @@ function Assumptions({ model }: { model: ResultsViewModel }) {
   );
 }
 
+function LocalInstallers({ model }: { model: ResultsViewModel }) {
+  if (!model.result.installers || model.result.installers.length === 0) {
+    return null;
+  }
+
+  return (
+    <section className="rounded-3xl border border-[#355e3b]/15 bg-white p-6 sm:p-8" aria-labelledby="installers-heading">
+      <div className="flex items-start gap-4">
+        <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-[#fff4b8]">
+          <MapPin className="size-6 text-[#7a5d00]" aria-hidden="true" />
+        </span>
+        <div className="w-full">
+          <p className="text-xs font-black uppercase tracking-[0.18em] text-[#6a7f6e]">Nearby Professionals</p>
+          <h2 id="installers-heading" className="mt-1 text-2xl font-black">Top 3 local solar installers</h2>
+          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            {model.result.installers.map((installer, idx) => (
+              <div key={installer.placeId || idx} className="rounded-2xl border border-[#355e3b]/10 bg-[#fffaf0] p-5 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md">
+                <h3 className="font-black text-[#17351d] line-clamp-1" title={installer.name}>{installer.name}</h3>
+                <div className="mt-2 flex items-center gap-1.5 text-sm font-bold text-[#9b6b27]">
+                  <span className="text-[#ffd84d]">★</span> {installer.rating ? installer.rating.toFixed(1) : "Unrated"}
+                </div>
+                <p className="mt-3 text-xs font-medium leading-5 text-[#6a7f6e] line-clamp-2" title={installer.address}>{installer.address}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Actions({ submissionId }: { submissionId: string }) {
   return (
     <section className="rounded-[2rem] bg-[#ffd84d] p-7 text-center sm:p-10" aria-labelledby="actions-heading">
@@ -243,6 +274,7 @@ export function ResultsPageContent({ model }: { model: ResultsViewModel }) {
         <HouseholdInsights model={model} />
         <Confidence model={model} />
         <Assumptions model={model} />
+        <LocalInstallers model={model} />
         <Actions submissionId={model.result.submissionId} />
       </div>
       <footer className="border-t border-[#355e3b]/15 px-4 py-8 text-center text-xs font-bold text-[#6a7f6e]">Panelly · In-app solar outlook · {model.location.stateCode}</footer>
