@@ -218,7 +218,14 @@ function Actions({ submissionId }: { submissionId: string }) {
   return (
     <section className="rounded-[2rem] bg-[#ffd84d] p-7 text-center sm:p-10" aria-labelledby="actions-heading">
       <Lightbulb className="mx-auto size-9" aria-hidden="true" /><h2 id="actions-heading" className="mt-3 text-3xl font-black">Keep your energy momentum going</h2><p className="mx-auto mt-3 max-w-xl font-medium text-[#355e3b]">Your report stays inside Panelly. Continue with the next useful step whenever you are ready.</p>
-      <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row"><Link href={ROUTES.savedReports} className={`${linkBase} bg-[#355e3b] text-white`}><History className="size-4" aria-hidden="true" /> View saved reports</Link><Link href={ROUTES.survey} className={`${linkBase} border-2 border-[#355e3b] bg-white text-[#17351d]`}><RefreshCw className="size-4" aria-hidden="true" /> Retake survey</Link><Link href={`/tips/${encodeURIComponent(submissionId)}`} className={`${linkBase} text-[#17351d]`}>Review energy-saving tips <ArrowRight className="size-4" aria-hidden="true" /></Link></div>
+      <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
+        <Link href={ROUTES.survey} className={`${linkBase} border-2 border-[#355e3b] bg-white text-[#17351d]`}>
+          <RefreshCw className="size-4" aria-hidden="true" /> Retake survey
+        </Link>
+        <Link href={`/tips/${encodeURIComponent(submissionId)}`} className={`${linkBase} text-[#17351d]`}>
+          Review energy-saving tips <ArrowRight className="size-4" aria-hidden="true" />
+        </Link>
+      </div>
     </section>
   );
 }
@@ -245,6 +252,20 @@ export function ResultsPageContent({ model }: { model: ResultsViewModel }) {
 
 export function UnknownResult({ malformed = false }: { malformed?: boolean }) {
   return (
-    <main className="grid min-h-screen place-items-center bg-[#fffaf0] px-4 py-12 text-[#17351d]"><div className="w-full max-w-xl text-center"><SunburstLogo className="mx-auto size-20" /><span className="mx-auto mt-5 grid size-14 place-items-center rounded-full bg-[#edf5ee]"><SearchX className="size-7" aria-hidden="true" /></span><h1 className="mt-5 text-4xl font-black">{malformed ? "This report needs a quick check" : "We couldn’t find that result"}</h1><p className="mx-auto mt-4 max-w-md font-medium leading-7 text-[#6a7f6e]">{malformed ? "The saved result is incomplete or malformed, so Panelly did not display uncertain values." : "This submission may not be available yet, or the link may be incorrect."}</p><div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><Link href={ROUTES.savedReports} className={`${linkBase} bg-[#355e3b] text-white`}>View saved reports</Link><Link href={ROUTES.survey} className={`${linkBase} border-2 border-[#355e3b] bg-white`}><Home className="size-4" aria-hidden="true" /> Retake survey</Link></div></div></main>
+    <main className="grid min-h-screen place-items-center bg-[#fffaf0] px-4 py-12 text-[#17351d]">
+      <div className="w-full max-w-xl text-center">
+        <SunburstLogo className="mx-auto size-20" />
+        <span className="mx-auto mt-5 grid size-14 place-items-center rounded-full bg-[#edf5ee]">
+          <SearchX className="size-7" aria-hidden="true" />
+        </span>
+        <h1 className="mt-5 text-4xl font-black">{malformed ? "This report needs a quick check" : "We couldn’t find that result"}</h1>
+        <p className="mx-auto mt-4 max-w-md font-medium leading-7 text-[#6a7f6e]">{malformed ? "The saved result is incomplete or malformed, so Panelly did not display uncertain values." : "This submission may not be available yet, or the link may be incorrect."}</p>
+        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <Link href={ROUTES.survey} className={`${linkBase} border-2 border-[#355e3b] bg-white`}>
+            <Home className="size-4" aria-hidden="true" /> Retake survey
+          </Link>
+        </div>
+      </div>
+    </main>
   );
 }

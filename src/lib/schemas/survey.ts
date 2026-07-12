@@ -95,6 +95,17 @@ export const SurveyInputSchema = z.object({
   washerTemp: z.enum(optionValues(WASHER_TEMP_OPTIONS)), // Q10
   homeFeatures: z.array(z.enum(optionValues(HOME_FEATURE_OPTIONS))).min(1), // Q11
   userId: z.string().optional(), // Clerk id — optional until Connie wires auth
+  identifiedAppliances: z.array(z.object({
+    id: z.string(),
+    applianceName: z.string(),
+    estWattage: z.number(),
+    estDailyKwh: z.number(),
+  })).optional(),
+  billRead: z.object({
+    totalKwh: z.number(),
+    totalDollars: z.number(),
+    billingPeriod: z.string(),
+  }).optional(),
 });
 export type SurveyInput = z.infer<typeof SurveyInputSchema>;
 

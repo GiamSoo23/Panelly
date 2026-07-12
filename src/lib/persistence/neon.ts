@@ -156,7 +156,7 @@ export async function getUserSubmissions(userId?: string): Promise<HistoryEntry[
     const result = SurveyResultSchema.parse({
       ...(row.result_json as Record<string, unknown>),
       submissionId: row.submission_id,
-      createdAt: row.created_at,
+      createdAt: row.created_at instanceof Date ? row.created_at.toISOString() : String(row.created_at),
     });
 
     return {
@@ -196,7 +196,7 @@ export async function getSubmissionById(submissionId: string): Promise<HistoryEn
   const result = SurveyResultSchema.parse({
     ...(row.result_json as Record<string, unknown>),
     submissionId: row.submission_id,
-    createdAt: row.created_at,
+    createdAt: row.created_at instanceof Date ? row.created_at.toISOString() : String(row.created_at),
   });
 
   return {

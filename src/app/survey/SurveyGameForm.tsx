@@ -4,8 +4,11 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export function SurveyGameForm() {
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [step, setStep] = useState(1);
 
   // Core Display Health States
@@ -34,6 +37,12 @@ export function SurveyGameForm() {
     laundryTemp: '',
     appliances: [] as string[]
   });
+
+  const [applianceImages, setApplianceImages] = useState<Record<string, string>>({});
+  const [identifiedAppliances, setIdentifiedAppliances] = useState<any[]>([]);
+  const [billImage, setBillImage] = useState<string>('');
+  const [billRead, setBillRead] = useState<any>(null);
+  const [isScanning, setIsScanning] = useState(false);
 
   // MINECRAFT ABSORPTION SHIELD ENGINE + SHATTER EFFECT
   useEffect(() => {
@@ -137,9 +146,134 @@ export function SurveyGameForm() {
   const handleNext = () => setStep(prev => prev + 1);
   const handleBack = () => setStep(prev => prev - 1);
 
+  const handleApplianceImageUpload = async (appliance: string, file: File) => {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const base64 = e.target?.result as string;
+      setApplianceImages(prev => ({ ...prev, [appliance]: base64 }));
+      
+      setIsScanning(true);
+      toast.loading(`Scanning ${appliance}...`);
+      try {
+        const res = await fetch('/api/identify-appliance', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ imageBase64: base64 })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setIdentifiedAppliances(prev => {
+            const others = prev.filter(a => a.applianceName !== appliance);
+            return [...others, { id: appliance.toLowerCase().replace(/\s/g, '_'), applianceName: appliance, estWattage: data.estWattage, estDailyKwh: data.estDailyKwh }];
+          });
+          toast.dismiss();
+          toast.success(`Identified: ${data.estWattage}W, ${data.estDailyKwh} kWh/day`);
+        } else {
+          toast.dismiss();
+          toast.error("Scan failed");
+        }
+      } catch (err) {
+        toast.dismiss();
+        toast.error("Scan error");
+      }
+      setIsScanning(false);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleBillUpload = async (file: File) => {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const base64 = e.target?.result as string;
+      setBillImage(base64);
+      
+      setIsScanning(true);
+      toast.loading("Reading utility bill...");
+      try {
+        const res = await fetch('/api/ocr-bill', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ imageBase64: base64 })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setBillRead(data);
+          toast.dismiss();
+          toast.success(`Found: ${data.totalKwh} kWh, $${data.totalDollars}`);
+        } else {
+          toast.dismiss();
+          toast.error("OCR failed");
+        }
+      } catch (err) {
+        toast.dismiss();
+        toast.error("OCR error");
+      }
+      setIsScanning(false);
+    };
+    reader.readAsDataURL(file);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("STAGE CLEAR! Baseline Locked!");
+    setIsSubmitting(true);
+    toast.loading("Locking baseline... calculating energy potential!");
+
+    try {
+      const payload = {
+        zip: formData.zipCode,
+        homeType: formData.homeType === 'Apartment' ? 'apartment' :
+                  formData.homeType === 'Townhouse / Condo' ? 'townhouse_condo' :
+                  formData.homeType === 'Single-family' ? 'single_family' :
+                  formData.homeType === 'Mobile home' ? 'mobile_home' : 'other',
+        householdSize: parseInt(formData.householdSize, 10) || 1,
+        homeSize: formData.homeSize === 'Under 1k sq ft' ? 'under_1000' :
+                  formData.homeSize === '1k–2k sq ft' ? '1000_2000' :
+                  formData.homeSize === '2k–3k sq ft' ? '2000_3000' : '3000_plus',
+        usageHabits: formData.energyHabits === 'HVAC Blasting' ? 'blasting' :
+                     formData.energyHabits === 'Conservative' ? 'conservative' :
+                     formData.energyHabits === 'Middle' ? 'in_between' : 'no_idea',
+        showerTime: formData.showerTime === 'Under 5 min' ? 'under_5' :
+                    formData.showerTime === '10–20 min' ? '10_20' : '20_plus',
+        hotMeals: formData.cookingFrequency === 'Takeout/Cold (0-5)' ? 'takeout_0_5' :
+                  formData.cookingFrequency === 'Dinners (6-12)' ? 'few_nights_6_12' : 'daily_13_plus',
+        dishwasherRuns: formData.dishwasherFrequency === 'Hand-Wash' ? 'hand_wash_only' :
+                        formData.dishwasherFrequency === 'Eco (1-3)' ? 'eco_1_3' : 'daily_4_plus',
+        laundryLoads: formData.laundryLoads === '1-3 loads' ? '1_3' :
+                      formData.laundryLoads === '4-7 loads' ? '4_7' : '8_plus',
+        washerTemp: formData.laundryTemp === 'Cold (Eco)' ? 'cold_eco' : 'warm_hot',
+        homeFeatures: formData.appliances.includes('None') ? ['none'] : formData.appliances.map(a => 
+          a === 'EV Charger' ? 'ev' :
+          a === 'Pool/Hot Tub' ? 'pool_hot_tub' :
+          a === 'Electric Heater' ? 'electric_water_heater' :
+          a === 'Gaming Rig' ? 'gaming_home_office' :
+          a === 'Electric Dryer' ? 'electric_washer_dryer' : 'none'
+        ),
+        identifiedAppliances: identifiedAppliances.length > 0 ? identifiedAppliances : undefined,
+        billRead: billRead ? billRead : undefined,
+      };
+
+      const res = await fetch("/api/survey", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.error || `HTTP ${res.status}`);
+      }
+
+      const data = await res.json();
+      toast.dismiss();
+      toast.success("STAGE CLEAR! Baseline Locked!");
+      router.push(`/results/${data.submissionId}`);
+    } catch (err: any) {
+      toast.dismiss();
+      toast.error("Error saving to database: " + err.message);
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -188,12 +322,12 @@ export function SurveyGameForm() {
         <div className="w-full space-y-1">
           <div className="flex justify-between text-[10px] uppercase font-bold text-[#FFD700]">
             <span>Level Progress</span>
-            <span>Zone {step} / 5</span>
+            <span>Zone {step} / 7</span>
           </div>
           <div className="w-full bg-black/40 h-3 border border-[#FFD700] p-[2px]">
             <div
               className="bg-[#FFC200] h-full transition-all duration-300"
-              style={{ width: `${(step / 5) * 100}%` }}
+              style={{ width: `${(step / 7) * 100}%` }}
             />
           </div>
         </div>
@@ -384,22 +518,75 @@ export function SurveyGameForm() {
                 </div>
               </div>
             </div>
+          </div>
+        )}
 
+        {/* ZONE 6: APPLIANCE SCAN */}
+        {step === 6 && (
+          <div className="space-y-4 overflow-y-auto max-h-[50vh] pr-2">
+            <h2 className="text-base font-black text-[#FFD700] uppercase tracking-wide border-b border-[#FFD700]/30 pb-2">📷 APPLIANCE SCAN (OPTIONAL)</h2>
             <div className="space-y-2 pt-2">
               <Label className="font-bold text-[11px] text-[#FFC200] uppercase">11. High-Voltage Ecosystem (Select All)</Label>
               <div className="grid grid-cols-2 gap-1.5">
                 {['EV Charger', 'Pool/Hot Tub', 'Electric Heater', 'Gaming Rig', 'Electric Dryer', 'None'].map((appliance) => {
                   const isChecked = formData.appliances.includes(appliance);
                   return (
-                    <button
-                      type="button" key={appliance} onClick={() => handleCheckboxChange(appliance)}
-                      className={`p-1.5 text-left text-[11px] border-2 font-bold rounded-none ${isChecked ? 'bg-[#FFD700] text-black' : 'bg-black/40 border-[#FFD700]'}`}
-                    >
-                      {isChecked ? '●' : '○'} {appliance}
-                    </button>
+                    <div key={appliance} className="flex flex-col gap-1">
+                      <button
+                        type="button" onClick={() => handleCheckboxChange(appliance)}
+                        className={`p-1.5 text-left text-[11px] border-2 font-bold rounded-none ${isChecked ? 'bg-[#FFD700] text-black' : 'bg-black/40 border-[#FFD700]'}`}
+                      >
+                        {isChecked ? '●' : '○'} {appliance}
+                      </button>
+                      {isChecked && appliance !== 'None' && (
+                        <div className="text-[10px] bg-black/20 p-1 border border-[#FFD700]/30">
+                          <input 
+                            type="file" 
+                            accept="image/*"
+                            disabled={isScanning}
+                            className="w-full text-[#FFD700] file:mr-2 file:py-1 file:px-2 file:border-0 file:bg-[#FFD700] file:text-black file:font-bold file:text-[9px] hover:file:bg-[#FFC200]" 
+                            onChange={(e) => {
+                              if (e.target.files && e.target.files[0]) {
+                                handleApplianceImageUpload(appliance, e.target.files[0]);
+                              }
+                            }}
+                          />
+                          {applianceImages[appliance] && <span className="text-green-400 mt-1 block">✓ Photo attached</span>}
+                        </div>
+                      )}
+                    </div>
                   );
                 })}
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* ZONE 7: UTILITY BILL OCR */}
+        {step === 7 && (
+          <div className="space-y-4">
+            <h2 className="text-base font-black text-[#FFD700] uppercase tracking-wide border-b border-[#FFD700]/30 pb-2">📄 UTILITY BILL OCR (OPTIONAL)</h2>
+            <p className="text-xs text-white/80">Upload your latest energy bill. Our AI will automatically extract your kWh and dollar amounts.</p>
+            <div className="p-4 border-2 border-dashed border-[#FFD700]/50 bg-black/20 text-center space-y-3">
+              <input 
+                type="file" 
+                accept="image/*"
+                disabled={isScanning}
+                className="w-full text-[#FFD700] file:mr-2 file:py-1 file:px-2 file:border-0 file:bg-[#FFD700] file:text-black file:font-bold file:text-[10px] hover:file:bg-[#FFC200] block mx-auto" 
+                onChange={(e) => {
+                  if (e.target.files && e.target.files[0]) {
+                    handleBillUpload(e.target.files[0]);
+                  }
+                }}
+              />
+              {billImage && <div className="text-green-400 font-bold text-xs">✓ Bill attached</div>}
+              {billRead && (
+                <div className="text-left bg-black/40 p-2 border border-[#FFD700] text-xs space-y-1">
+                  <div><span className="text-[#FFC200]">Total kWh:</span> {billRead.totalKwh}</div>
+                  <div><span className="text-[#FFC200]">Amount:</span> ${billRead.totalDollars}</div>
+                  <div><span className="text-[#FFC200]">Period:</span> {billRead.billingPeriod}</div>
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -411,10 +598,17 @@ export function SurveyGameForm() {
               BACK
             </Button>
           )}
-          {step < 5 ? (
+          {step < 7 ? (
             <Button
               type="button" onClick={handleNext}
-              disabled={(step === 1 && (!formData.zipCode || !formData.householdSize)) || (step === 2 && (!formData.homeType || !formData.homeSize)) || (step === 3 && (!formData.energyHabits || !formData.showerTime)) || (step === 4 && (!formData.cookingFrequency || !formData.dishwasherFrequency))}
+              disabled={
+                (step === 1 && (!formData.zipCode || !formData.householdSize)) || 
+                (step === 2 && (!formData.homeType || !formData.homeSize)) || 
+                (step === 3 && (!formData.energyHabits || !formData.showerTime)) || 
+                (step === 4 && (!formData.cookingFrequency || !formData.dishwasherFrequency)) ||
+                (step === 5 && (!formData.laundryLoads || !formData.laundryTemp)) ||
+                (step === 6 && formData.appliances.length === 0)
+              }
               className="flex-1 bg-[#FFD700] hover:bg-[#FFC200] text-black font-black uppercase rounded-none border-2 border-black text-xs h-10 tracking-wider"
             >
               NEXT ZONE ➔
@@ -422,10 +616,10 @@ export function SurveyGameForm() {
           ) : (
             <Button
               type="submit"
-              disabled={!formData.laundryLoads || !formData.laundryTemp || formData.appliances.length === 0}
+              disabled={isSubmitting || isScanning}
               className="flex-1 bg-[#FFD700] hover:bg-[#FFC200] text-black font-black uppercase rounded-none border-2 border-black text-xs h-10 tracking-widest animate-bounce"
             >
-              LOCK BASELINE 🔌
+              {isSubmitting ? "TRANSMITTING..." : "LOCK BASELINE 🔌"}
             </Button>
           )}
         </div>

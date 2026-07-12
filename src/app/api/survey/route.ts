@@ -56,7 +56,7 @@ export async function POST(request: Request) {
       solarPanelConfigs: solarPotential.solarPanelConfigs,
     });
 
-    const appliances = featureAppliances(input);
+    const appliances = input.identifiedAppliances || featureAppliances(input);
 
     const tip = await generateTip({
       applianceNames: appliances.map((a) => a.applianceName),
@@ -80,7 +80,7 @@ export async function POST(request: Request) {
       payback,
       installers,
       appliances,
-      billRead: null,
+      billRead: input.billRead || null,
       tip,
     };
 
